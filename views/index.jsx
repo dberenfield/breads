@@ -27,3 +27,4 @@ function Index ({breads}) {
 }
 
 module.exports = Index
+app.use(express.urlencoded({ extended: true }))
