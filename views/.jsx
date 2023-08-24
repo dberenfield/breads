@@ -36,10 +36,4 @@ function new_form () {
 }
 
 
-function new_form () {
-    return (
-        <Def></Def>
-    )
-}
-
 module.exports = new_form
