@@ -26,14 +26,43 @@ breads.get('/new', (req, res) => {
     res.render('new')
 })
 
+breads.get('/:arrayIndex/edit', (req, res) => {
+    console.log("Edit page")
+    res.render('edit', {
+        bread: Bread[req.params.arrayIndex],
+        index: req.params.arrayIndex
+    })
+})
+
 breads.get('/:arrayIndex', (req, res) => {
+    console.log("Not Edit")
     if (Bread[req.params.arrayIndex]) {
         res.render('show', {
-            bread: Bread[req.params.arrayIndex]
+            bread: Bread[req.params.arrayIndex],
+            index: req.params.arrayIndex
         })
     } else {
-        res.send('404')
+        //res.send('404')
+        res.render('404')
     }
+})
+
+
+
+// UPDATE
+breads.put('/:arrayIndex', (req, res) => {
+    if(req.body.hasGluten === 'on') {
+        req.body.hasGluten = true
+    } else {
+        req.body.hasGluten = false
+    }
+    Bread[req.params.arrayIndex] = req.body
+    res.redirect(`/breads/${req.params.arrayIndex}`)
+})
+
+breads.delete('/:arrayIndex', (req, res) => {
+    Bread.splice(req.params.arrayIndex, 1)
+    res.status(303).redirect('/breads')
 })
 
 module.exports = breads
